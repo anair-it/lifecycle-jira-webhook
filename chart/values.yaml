@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: anair/lifecycle-jira-integration
+  repository: anoopnair/lifecycle-jira-integration
   pullPolicy: IfNotPresent
   tag: "latest"
 

@@ -1,0 +1,9 @@
+node_modules
+*.log
+chart/
+.idea
+*.iml
+*.md
+*ignore
+*rc.json
+test/

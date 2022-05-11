@@ -1,0 +1,8 @@
+apiVersion: v2
+name: lifecycle-jira-integration
+description: A Helm chart installing a Nodejs app that listens to Nexus Lifecycle violation events and creates Jira cloud tickets
+
+type: application
+
+version: 1.0.0
+appVersion: "1.0.0"

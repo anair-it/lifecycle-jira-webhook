@@ -1,0 +1,7 @@
+chart/
+Dockerfile
+*.yaml
+*.yml
+*.json
+*.md
+*.iml

@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "chart.fullname" . }}
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "chart.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: LIFECYCLE_BASE_URL
+              value: "{{ .Values.lifecycle.baseUrl}}"
+            - name: LIFECYCLE_APP_REPORT_BASE_URL
+              value: "{{ .Values.lifecycle.appReportBaseUrl}}"
+            - name: JIRA_WEBHOOK_AUTH_TOKEN
+              value: "{{ .Values.jira.webhook.authToken}}"
+            - name: JIRA_WEBHOOK_HOST
+              value: "{{ .Values.jira.webhook.host}}"
+            - name: JIRA_WEBHOOK_PATH
+              value: "{{ .Values.jira.webhook.path}}"
+            - name: ENABLE_JIRA_WEBHOOK
+              value: "{{ .Values.jira.webhook.enabled}}"
+            - name: PORT
+              value: "{{ .Values.service.port | default 3000}}"
+            - name: LOG_LEVEL
+              value: "{{ .Values.log.level}}"
+            - name: MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS
+              value: {{ .Values.mapping.threatLevelToJiraFields | toJson | quote }}
+            - name: MAPPING_STAGE_TO_BRANCH_TYPE
+              value: {{ .Values.mapping.lifecycleStageToScmBranch | toJson | quote }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port | default 3000}}
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 2
+            periodSeconds: 60
+            failureThreshold: 3
+            timeoutSeconds: 2
+            successThreshold: 1
+            httpGet:
+              path: /ping
+              port: http
+
+          readinessProbe:
+            initialDelaySeconds: 2
+            periodSeconds: 60
+            failureThreshold: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            httpGet:
+              path: /ping
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

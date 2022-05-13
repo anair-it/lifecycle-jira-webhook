@@ -10,7 +10,7 @@
 - Jira Cloud access
 - Sonatype Lifecycle access
 
-## QuickStart
+## Install chart
 
 ```bash
 $ helm repo add lifecycle-jira-integration https://anair-it.github.io/lifecycle-jira-webhook/chart
@@ -25,7 +25,7 @@ $ helm repo update
 $ helm install my-lifecycle-jira-integration lifecycle-jira-integration/lifecycle-jira-integration -f my-values.yaml
 ```
 
-## Uninstalling the Chart
+## Uninstall chart
 To uninstall/delete the `my-lifecycle-jira-integration` deployment.The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ```bash
@@ -33,11 +33,7 @@ $ helm uninstall my-lifecycle-jira-integration
 ```
 
 ## Configuration
-
 The configurable parameters of the lifecycle-jira-integration chart and their descriptions can be seen in `values.yaml`.
-
-> **Tip**: You can use the default [values.yaml](values.yaml)
-
 Here are the most common:
 
 | Parameter                          | Description                                                                                                                                                           | Default                                  |

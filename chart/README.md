@@ -13,7 +13,7 @@ This chart deploys middleware component that integrates SOnatype lifecycle with 
 ## QuickStart
 
 ```bash
-$ helm repo add anoopnair https://github.com/anair-it/lifecycle-jira-webhook/chart
+$ helm repo add lifecycle-jira-integration https://anair-it.github.io/lifecycle-jira-webhook/chart
 $ helm repo update
 # Create a custom values.yaml file. Update the following in that values.yaml:
 #   1. lifecycle.*
@@ -22,7 +22,7 @@ $ helm repo update
 #   4. mapping.lifecycleStageToScmBranch
 #   5. mapping.threatLevelToJiraFields
 #   6. And others as required
-$ helm install my-lifecycle-jira-integration anoopnair/lifecycle-jira-integration -f my-values.yaml
+$ helm install my-lifecycle-jira-integration lifecycle-jira-integration/lifecycle-jira-integration -f my-values.yaml
 ```
 
 ## Uninstalling the Chart

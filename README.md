@@ -23,19 +23,28 @@
    5. JIRA_WEBHOOK_PATH: Required. Jira webhook rest of the url
    6. LIFECYCLE_BASE_URL: Required. Nexus lifecycle base url/host
    7. LIFECYCLE_APP_REPORT_BASE_URL: Required. Nexus Lifecycle report url path
-   8. MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS: Required. Threat level is mapped to a policy category like License/Security. Each category has it own definition of priority, severity and bug nature Example: ``` git   
-      {
-       "10": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}},
-       "9": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}},
-       "8": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}},
-       "7": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}}
-      }```
-   9. MAPPING_STAGE_TO_BRANCH_TYPE: Required. Map Lifecycle stage to an SCM branch type like `{"build": "develop","stage-release": "master","release": "release"}`
+   8. MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS: Required. Threat level is mapped to a policy category like License/Security. Each category has it own definition of priority, severity and bug nature Example: 
+      
+      ```json
+       {
+        "10": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}},
+        "9": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}},
+        "8": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}},
+        "7": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}}
+       }
+      ```
+      
+   9. MAPPING_STAGE_TO_BRANCH_TYPE: Required. Map Lifecycle stage to an SCM branch type like 
+   
+      ```json
+      {"build": "develop","stage-release": "master","release": "release"}
+      ```
+   
    10. PORT: Exposed port. Defaults to __3000__
    11. LOG_LEVEL: Minimum log level. Defaults to __info__
-9. Deployable as a Docker container or Helm chart in a K8s environment
-10. Structured logging to help with debugging
-11. Refer unit tests for details. Run `npm test`
+   12. Deployable as a Docker container or Helm chart in a K8s environment
+   13. Structured logging to help with debugging
+   14. Refer unit tests for details. Run `npm test`
 
 
 ## Root level components

@@ -3,13 +3,13 @@ entries:
   lifecycle-jira-integration:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-05-11T18:48:57.879844-04:00"
+    created: "2022-05-13T02:55:03.186372-04:00"
     description: A Helm chart installing a Nodejs app that listens to Nexus Lifecycle
       violation events and creates Jira cloud tickets
-    digest: caa2165a4fe988f43610e2a2ae3c672346a1f374b428fe6f0423a9c661d8cd5a
+    digest: e4ba9caab4f92d431625fa67bebe5f4d9776afe6188d8b426bdedfa7de641c77
     name: lifecycle-jira-integration
     type: application
     urls:
     - lifecycle-jira-integration-1.0.0.tgz
     version: 1.0.0
-generated: "2022-05-11T18:48:57.870495-04:00"
+generated: "2022-05-13T02:55:03.184839-04:00"

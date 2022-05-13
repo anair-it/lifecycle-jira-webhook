@@ -73,6 +73,7 @@ curl localhost:3000/ping
 
 ### As a Helm chart
 > Refer [Helm chart README](chart/README.md)
+> Chart in [Artifact Hub](https://anair-it.github.io/lifecycle-jira-webhook/chart/)
 1. Download helm chart from Artifact Hub
 2. Create a custom values.yaml file. Update the following in that values.yaml:
    1. lifecycle.*

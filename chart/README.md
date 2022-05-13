@@ -25,6 +25,16 @@ $ helm repo update
 $ helm install my-lifecycle-jira-integration lifecycle-jira-integration/lifecycle-jira-integration -f my-values.yaml
 ```
 
+## Verify
+1. Ensure Nexus lifecycle can access the webhook url
+2. Re-evaluate an application to manually create a violation
+3. Verify Jira ticket is created based on the violation
+4. To verify, log into the pod using `kubectl exec -it POD_ID -- bash`
+5. Run POST curl command in bash shell
+6. Monitor container logs `kubectl logs -f POD_ID`
+7. To uninstall chart, run `helm uninstall my-lifecycle-jira-integration`
+
+
 ## Uninstall chart
 To uninstall/delete the `my-lifecycle-jira-integration` deployment.The command removes all the Kubernetes components associated with the chart and deletes the release.
 

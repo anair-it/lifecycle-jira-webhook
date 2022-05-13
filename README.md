@@ -55,7 +55,8 @@
 > [Docker hub image reference](https://hub.docker.com/repository/docker/anoopnair/lifecycle-jira-integration) 
 
 1. Create container and run in an environment where Nexus Lifecycle can access the url
-```
+
+```bash
 # Pull docker image from docker hub
 docker pull anoopnair/lifecycle-jira-integration:latest
 
@@ -66,35 +67,27 @@ docker run -p 3000:3000 --name my-lifecycle-jira-integration --rm -d -e PORT=300
 # Ping endpoint and get a "pong" response
 curl localhost:3000/ping
 ```
+
 2. Ensure Nexus lifecycle can access the webhook url
 3. Re-evaluate an application to manually create a violation
 4. Verify Jira ticket is created based on the violation
 5. Monitor container logs `docker logs -f my-lifecycle-jira-integration`
 
 ### As a Helm chart
-> Refer [Helm chart README](chart/README.md)
-> Chart in [Artifact Hub](https://anair-it.github.io/lifecycle-jira-webhook/chart/)
-1. Download helm chart from Artifact Hub
-2. Create a custom values.yaml file. Update the following in that values.yaml:
-   1. lifecycle.*
-   2. jira.*
-   3. log.level
-   4. mapping.lifecycleStageToScmBranch
-   5. mapping.threatLevelToJiraFields
-   6. And others as required
-3. Run `helm install my-lifecycle-jira-integration chart -f chart/my-values.yaml` in minikube or your K8s cluster
-4. Ensure Nexus lifecycle can access the webhook url
-5. Re-evaluate an application to manually create a violation
-6. Verify Jira ticket is created based on the violation
-7. To verify, log into the pod using `kubectl exec -it POD_ID -- bash`
-8. Run POST curl command in bash shell
-9. Monitor container logs `kubectl logs -f POD_ID`
-10. To uninstall chart, run `helm uninstall my-lifecycle-jira-integration`
+1. Install helm chart: [Helm chart README](chart/README.md)
+2. Ensure Nexus lifecycle can access the webhook url
+3. Re-evaluate an application to manually create a violation
+4. Verify Jira ticket is created based on the violation
+5. To verify, log into the pod using `kubectl exec -it POD_ID -- bash`
+6. Run POST curl command in bash shell
+7. Monitor container logs `kubectl logs -f POD_ID`
+8. To uninstall chart, run `helm uninstall my-lifecycle-jira-integration`
 
 
 ## Sample violation event request (Testing purpose only)
 This event will create 2 Jira tickets
-```
+
+```bash
 curl --request POST \
   --url http://localhost:3000/lifecycle/violation \
   --header 'Content-Type: application/json' \

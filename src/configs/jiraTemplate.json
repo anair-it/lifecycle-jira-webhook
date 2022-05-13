@@ -4,7 +4,7 @@
   "severity": "{severity}",
   "productVersion": "latest",
   "environment": "DEV",
-  "description": "h1. Summary\r\n||*Application*|{appName}|\r\n||*Evaluation timestamp*|{evaluationDate}|\r\n||*Lifecycle Stage*|{stage}\r\nBranch type: {branch}|\r\n||*Affected Component count*|{affectedComponentCount}|\r\n||*Critical component count*|{criticalComponentCount}|\r\n||*Severe component count*|{severeComponentCount}|\r\n||*Moderate component count*|{moderateComponentCount}|\r\n\r\nh1. Violation detail\r\n||*Policy*|{policyName}|\r\n||*Threat level*|{threatLevel}|\r\n||*Component*|{component}|\r\n",
+  "description": "h1. Summary\r\n||*Application*|{appName}|\r\n||*Evaluation timestamp*|{evaluationDate}|\r\n||*Lifecycle Stage*|{stage}\r\nBranch type: {branch}|\r\n||*Affected Component count*|{affectedComponentCount}|\r\n||*Critical component count*|{criticalComponentCount}|\r\n||*Severe component count*|{severeComponentCount}|\r\n||*Moderate component count*|{moderateComponentCount}|\r\n\r\nh1. Violation detail\r\n||*Policy*|{policyName}|\r\n||*Threat level*|{threatLevel}|\r\n||*Component*|[{component}|{lifecycleViolationUrl}]|\r\n",
   "replicationSteps": "{lifecycleViolationUrl}",
   "bugNature": "{bugNature}",
   "labels": "{policyName}",

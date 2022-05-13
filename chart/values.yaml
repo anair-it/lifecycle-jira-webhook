@@ -9,13 +9,14 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-lifecycle: {}
+lifecycle:
 #  baseUrl:
-#  appReportBaseUrl:
+  appReportBaseUrl: /assets/index.html#/applicationReport/
+#  secretKey:
 
-jira: {}
-#  webhook:
-#    enabled: false
+jira:
+  webhook:
+    enabled: false
 #    authToken:
 #    host:
 #    path:

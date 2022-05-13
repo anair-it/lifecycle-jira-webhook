@@ -32,6 +32,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: LIFECYCLE_SECRET_KEY
+              value: "{{ .Values.lifecycle.secretKey}}"
             - name: LIFECYCLE_BASE_URL
               value: "{{ .Values.lifecycle.baseUrl}}"
             - name: LIFECYCLE_APP_REPORT_BASE_URL

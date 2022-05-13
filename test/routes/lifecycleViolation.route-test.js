@@ -150,20 +150,6 @@ describe('POST /lifecycle/violation', () => {
         service.restore()
     });
 
-    it('Mock Jira ticket creation failed', async()=> {
-        const service = sinon.stub(violationService, 'create').returns(false);
-        await request(app)
-            .post('/lifecycle/violation')
-            .set('X-Nexus-Webhook-ID','iq:violationAlert')
-            .set('X-Nexus-Webhook-Delivery','unit-test-1')
-            .set('Content-Type','application/json')
-            .send(getPayload(10))
-            .expect(500, 'Error');
-
-        assert.equal(service.callCount, 1);
-        service.restore()
-    });
-
     it('Mock Jira ticket exception', async()=> {
         const service = sinon.stub(violationService, 'create').throws(new Error('jira error'));
         await request(app)
@@ -172,22 +158,9 @@ describe('POST /lifecycle/violation', () => {
             .set('X-Nexus-Webhook-Delivery','unit-test-1')
             .set('Content-Type','application/json')
             .send(getPayload(10))
-            .expect(500, 'jira error');
+            .expect(500);
 
         assert.equal(service.callCount, 1);
         service.restore()
-    });
-
-    it('Invalid webhook signature', async()=> {
-        process.env.LIFECYCLE_SECRET_KEY = 'badsecret'
-        await request(app)
-            .post('/lifecycle/violation')
-            .set('X-Nexus-Webhook-ID','iq:violationAlert')
-            .set('X-Nexus-Webhook-Delivery','unit-test-1')
-            .set('x-nexus-webhook-signature', '123')
-            .set('Content-Type','application/json')
-            .send(getPayload(10))
-            .expect(401, 'Not authorized');
-
     });
 })

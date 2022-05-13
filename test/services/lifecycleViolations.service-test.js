@@ -1,4 +1,4 @@
-const { assert,expect } = require('chai')
+const { assert } = require('chai')
 const sinon = require('sinon')
 const service = require('../../src/services/lifecycleViolation.service')
 const jiraClient = require('../../src/services/client/jira.client')
@@ -176,17 +176,25 @@ describe('Validate Jira client', () => {
 
     describe('Validate process', () => {
         it('Empty policy alerts',  async () => {
-            expect(await service.create(noPolicyAlerts())).to.equal(true);
+            try{
+                await service.create(noPolicyAlerts())
+            }catch(err){
+                assert.isNotNull(err)
+            }
         })
 
         it('Empty threat level map',  async () => {
             const threatlevelMap = sinon.stub(threatLevelMapper, 'map').returns(null)
-            expect(await  service.create(getPayload(10))).to.equal(true);
-            assert.equal(threatlevelMap.callCount, 2)
+            try{
+                await service.create(getPayload(10))
+            }catch(err){
+                assert.isNotNull(err)
+            }
+            assert.equal(threatlevelMap.callCount, 1)
             threatlevelMap.restore();
         })
 
-        it('Invoke Jira client',  async () => {
+        it('Successfully invoke Jira client',  async () => {
             process.env.MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS =
                 '{' +
                 '       "10": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}},\n' +
@@ -195,9 +203,13 @@ describe('Validate Jira client', () => {
                 '       "7": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}}\n' +
                 '      }'
 
-            const jiraClientResponse = sinon.stub(jiraClient, 'createJiraTicket').returns(false)
+            const jiraClientResponse = sinon.stub(jiraClient, 'createJiraTicket')
 
-            expect(await  service.create(getPayload(10))).to.equal(true);
+            try{
+                await service.create(getPayload(10))
+            }catch(err){
+                assert.isEmpty(err)
+            }
             assert.equal(jiraClientResponse.callCount, 3)
             jiraClientResponse.restore()
         })

@@ -1,5 +1,5 @@
 node_modules/
 .idea/
 lifecycle-jira-webhook.iml
-myValues.yaml
+chart/myValues.yaml
 

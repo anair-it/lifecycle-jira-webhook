@@ -163,7 +163,7 @@ describe('Validate Jira data builder', () => {
             assert.equal(jiraJsonData.labels, 'Security-Critical')
             assert.equal(
                 jiraJsonData.replicationSteps,
-                'https://my-lifecycle.com/reports/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/62c3f1fc67b149f1a584cd63acb23eed/violations'
+                'https://my-lifecycle.com/reports/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/40fb048097caeacdb11d/violations'
             )
         })
 

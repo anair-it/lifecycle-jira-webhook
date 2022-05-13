@@ -21,7 +21,6 @@
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "morgan-json": "^1.1.0",
-    "nodemon": "^2.0.15",
     "winston": "^3.7.2"
   },
   "devDependencies": {

@@ -18,33 +18,45 @@ describe('Validate Jira client', () => {
             jiraRequest.end;
             const requestMock = sinon.stub(https,'request').returns(jiraRequest);
 
-            expect(await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))).to.equal(true);
+            expect(await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))).not.to.throw;
 
             assert.equal(requestMock.callCount, 1)
             requestMock.restore()
             sinon.restoreObject(jiraRequest);
-
         })
     })
 
     describe('Validate Jira client with invalid data', () => {
         it('Webhook disabled',  async () => {
             process.env.ENABLE_JIRA_WEBHOOK = 'false';
-            expect(await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))).to.equal(false);
+            jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))
+            try{
+                await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))
+            }catch(err){
+                assert.isNotNull(err)
+            }
         })
 
         it('Invalid webhook url',  async () => {
             delete process.env.JIRA_WEBHOOK_HOST
             process.env.ENABLE_JIRA_WEBHOOK = 'true';
             process.env.JIRA_WEBHOOK_PATH = '/webhook';
-            expect(await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))).to.equal(false);
+            try{
+                await jiraClient.createJiraTicket(JSON.stringify('{"data":"val"}'))
+            }catch(err){
+                assert.isNotNull(err)
+            }
         })
 
         it('Invalid webhook request payload',  async () => {
             process.env.ENABLE_JIRA_WEBHOOK = 'true';
             process.env.JIRA_WEBHOOK_HOST = 'company.jira.com';
             process.env.JIRA_WEBHOOK_PATH = '/webhook';
-            expect(await jiraClient.createJiraTicket(null)).to.equal(false);
+            try{
+                await jiraClient.createJiraTicket(null)
+            }catch(err){
+                assert.isNotNull(err)
+            }
         })
     })
 })

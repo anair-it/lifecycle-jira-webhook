@@ -1,18 +1,22 @@
 # Sonatype Nexus Lifecycle-Jira cloud integration
 [Sonatype Nexus Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management?topnav=true) is an SCA product. Currently Nexus Lifecycle cannot push violation events to __Jira cloud__ through a builtin plugin or software. This is a middleware component that can listen to Lifecycle violation events and create Jira cloud tickets
 
+![Data flow](data-flow.png)
+![Jira bug](jira-bug.png)
+
 ## Reference
 - https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks
 
 ## Features
 1. This webhook integration implements a POST endpoint __/lifecycle/violation__ that will listen to a Nexus Lifecycle violation event
 2. Works with Jira cloud (Should work in Jira datacenter as well, but not tested)
-3. Lightweight Express JS webapp on Node platform
+3. Lightweight Express JS middleware on Node platform
 4. Jira json payload template in _jiraDataTemplate.json_ can be updated based on your needs
 5. Map Nexus Lifecycle data elements to Jira elements
 6. Post data to Jira webhook that creates a story/bug. If there are multiple violations and multiple components per violation, a jira ticket is created per component. So one event can trigger multiple Jira tickets
-7. Externalized properties to modify webhook behavior:
-   1. LIFECYCLE_SECRET_KEY: Optional. Set this if  a secret key is set in Lifecycle webhook admin page
+7. Lifecycle will send all events for every violation. Dedupe using componentFact.hash in the Jira webhook
+8. Externalized properties to modify webhook behavior:
+   1. LIFECYCLE_SECRET_KEY: Optional. Set this if a secret key is set in Lifecycle webhook admin page
    2. ENABLE_JIRA_WEBHOOK: Set to true to create Jira tickets. Else the event will be received, but no data will be posted to Jira. Defaults to 'false'
    3. JIRA_WEBHOOK_AUTH_TOKEN: Required. Jira webhook doesn't have built-in authentication mechanism, it's better to use a made-up encoded string and match it on the webhook side.
    4. JIRA_WEBHOOK_HOST: Required. Jira webhook base url
@@ -29,9 +33,9 @@
    9. MAPPING_STAGE_TO_BRANCH_TYPE: Required. Map Lifecycle stage to an SCM branch type like `{"build": "develop","stage-release": "master","release": "release"}`
    10. PORT: Exposed port. Defaults to __3000__
    11. LOG_LEVEL: Minimum log level. Defaults to __info__
-8. Deployable as a Docker container or Helm chart in a K8s environment
-9. Structured logging to help with debugging
-10. Refer unit tests for details. Run `npm test`
+9. Deployable as a Docker container or Helm chart in a K8s environment
+10. Structured logging to help with debugging
+11. Refer unit tests for details. Run `npm test`
 
 
 ## Root level components
@@ -48,14 +52,16 @@
 
 ## Install
 ### As a Docker container
+> [Docker hub image reference](https://hub.docker.com/repository/docker/anoopnair/lifecycle-jira-integration) 
+
 1. Create container and run in an environment where Nexus Lifecycle can access the url
 ```
 # Pull docker image from docker hub
-docker pull anair/lifecycle-jira-integration
+docker pull anoopnair/lifecycle-jira-integration:latest
 
 # Run webhook container
 # Add env variables using -e
-docker run -p 3000:3000 --name my-lifecycle-jira-integration --rm -d -e PORT=3000  anair/lifecycle-jira-integration
+docker run -p 3000:3000 --name my-lifecycle-jira-integration --rm -d -e PORT=3000  anoopnair/lifecycle-jira-integration
 
 # Ping endpoint and get a "pong" response
 curl localhost:3000/ping
@@ -66,6 +72,7 @@ curl localhost:3000/ping
 5. Monitor container logs `docker logs -f my-lifecycle-jira-integration`
 
 ### As a Helm chart
+> Refer [Helm chart README](chart/README.md)
 1. Download helm chart from Artifact Hub
 2. Create a custom values.yaml file. Update the following in that values.yaml:
    1. lifecycle.*
@@ -91,7 +98,7 @@ curl --request POST \
   --url http://localhost:3000/lifecycle/violation \
   --header 'Content-Type: application/json' \
   --header 'X-Nexus-Webhook-Delivery: 12343' \
-  --header 'X-Nexus-Webhook-ID: iq:violationAlert' \
+  --header 'X-Nexus-Webhook-ID: iq:policyAlert' \
   --data '{
   "initiator": "admin",
   "applicationEvaluation": {

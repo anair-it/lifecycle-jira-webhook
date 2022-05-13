@@ -1,7 +1,7 @@
 const jiraTemplateReader = require('../configs/jiraTemplateReader')
 const logger = require('../lib/logger')
 
-function buildViolationUrl(reqBody, policyAlert) {
+function buildViolationUrl(reqBody, componentFact) {
     return (
         process.env.LIFECYCLE_BASE_URL +
         process.env.LIFECYCLE_APP_REPORT_BASE_URL +
@@ -9,7 +9,7 @@ function buildViolationUrl(reqBody, policyAlert) {
         '/' +
         reqBody.applicationEvaluation.reportId +
         '/componentDetails/' +
-        policyAlert.policyViolationId +
+        componentFact.hash +
         '/violations'
     )
 }
@@ -46,11 +46,11 @@ function map(reqBody, policyAlert, componentFact, threatLevelMapVal) {
             .split('{moderateComponentCount}')
             .join(reqBody.applicationEvaluation.moderateComponentCount)
             .split('{lifecycleViolationUrl}')
-            .join(buildViolationUrl(reqBody, policyAlert))
+            .join(buildViolationUrl(reqBody, componentFact))
             .split('{policyName}')
             .join(policyAlert.policyName.replace(' ', '-'))
             .split('{policyViolationId}')
-            .join(policyAlert.policyViolationId)
+            .join(componentFact.hash)
             .split('{threatLevel}')
             .join(policyAlert.threatLevel)
             .split('{priority}')

@@ -17,7 +17,7 @@ function map(threatLevel) {
         )
         if (logger.isVerboseEnabled())
             logger.verbose(
-                `MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS parsed: ${threatLevelMap}`
+                `MAPPING_THREAT_LEVEL_TO_JIRA_FIELDS parsed: ${threatLevelMap.entries}`
             )
     } else {
         logger.error(

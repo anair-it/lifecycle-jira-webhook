@@ -5,7 +5,7 @@
 ![Jira bug](jira-bug.png)
 
 ## Reference
-- https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks
+- (https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks)
 
 ## Features
 1. This webhook integration implements a POST endpoint __/lifecycle/violation__ that will listen to a Nexus Lifecycle violation event
@@ -55,7 +55,8 @@
 > [Docker hub image reference](https://hub.docker.com/repository/docker/anoopnair/lifecycle-jira-integration) 
 
 1. Create container and run in an environment where Nexus Lifecycle can access the url
-```
+
+```unix
 # Pull docker image from docker hub
 docker pull anoopnair/lifecycle-jira-integration:latest
 
@@ -66,15 +67,14 @@ docker run -p 3000:3000 --name my-lifecycle-jira-integration --rm -d -e PORT=300
 # Ping endpoint and get a "pong" response
 curl localhost:3000/ping
 ```
+
 2. Ensure Nexus lifecycle can access the webhook url
 3. Re-evaluate an application to manually create a violation
 4. Verify Jira ticket is created based on the violation
 5. Monitor container logs `docker logs -f my-lifecycle-jira-integration`
 
 ### As a Helm chart
-> Refer [Helm chart README](chart/README.md)
-> Chart in [Artifact Hub](https://anair-it.github.io/lifecycle-jira-webhook/chart/)
-1. Download helm chart from Artifact Hub
+1. Download helm chart from [Artifact Hub](https://anair-it.github.io/lifecycle-jira-webhook/chart/)
 2. Create a custom values.yaml file. Update the following in that values.yaml:
    1. lifecycle.*
    2. jira.*
@@ -94,7 +94,8 @@ curl localhost:3000/ping
 
 ## Sample violation event request (Testing purpose only)
 This event will create 2 Jira tickets
-```
+
+```unix
 curl --request POST \
   --url http://localhost:3000/lifecycle/violation \
   --header 'Content-Type: application/json' \

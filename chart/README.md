@@ -27,6 +27,7 @@ $ helm install my-lifecycle-jira-integration anoopnair/lifecycle-jira-integratio
 
 ## Uninstalling the Chart
 To uninstall/delete the `my-lifecycle-jira-integration` deployment.The command removes all the Kubernetes components associated with the chart and deletes the release.
+
 ```bash
 $ helm uninstall my-lifecycle-jira-integration
 ```
@@ -57,19 +58,13 @@ Here are the most common:
 | `tolerations`                      | Tolerations                                                                                                                                                           | `[]`                                     |
 | `affinity`                         | Affinity                                                                                                                                                              | `{}`                                     |
 | `lifecycle.baseUrl`                | Base URL to Sonatype Lifecycle host                                                                                                                                   | `{}`                                     |
-| lifecycle.appReportBaseUrl`        | Rest of the URL to Sonatype Lifecycle                                                                                                                                 | `/assets/index.html#/applicationReport/` |
-| lifecycle.secretKey`               | Webhook HMAC secret. Optional                                                                                                                                         | `{}`                                     |
-| jira.webhook.enabled`              | Enable Jira integration                                                                                                                                               | `false`                                  |
-| jira.webhook.authToken`            | Made up Authentication token that Jira will validate                                                                                                                  | `{}`                                     |
-| jira.webhook.host`                 | Jira webhook base URL                                                                                                                                                 | `{}`                                     |
-| jira.webhook.path`                 | Jira webhook rest of the URL                                                                                                                                          | `{}`                                     |
-| log.level`                         | Log level                                                                                                                                                             | `info`                                   |
-| mapping.lifecycleStageToScmBranch` | Map Lifecycle stage to a SCM branch. Example: {"build": "develop","stage-release": "master","release": "release"}                                                     | `{}`                                     |
-| mapping.threatLevelToJiraFields`   | Map Lifecycle threat level to Jira priority, severity, bug nature. Example: 
-{
-      "10": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-Security" } },
-      "9": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-2", "bugNature": "SCA-Security" } },
-      "8": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-3", "bugNature": "SCA-Security" } },
-      "7": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P2", "severity": "SEV-4", "bugNature": "SCA-Security" } }
-    }                                                                                                                                                                                                         | `{}`                                     |
+| `lifecycle.appReportBaseUrl`        | Rest of the URL to Sonatype Lifecycle                                                                                                                                 | `/assets/index.html#/applicationReport/` |
+| `lifecycle.secretKey`               | Webhook HMAC secret. Optional                                                                                                                                         | `{}`                                     |
+| `jira.webhook.enabled`              | Enable Jira integration                                                                                                                                               | `false`                                  |
+| `jira.webhook.authToken`            | Made up Authentication token that Jira will validate                                                                                                                  | `{}`                                     |
+| `jira.webhook.host`                 | Jira webhook base URL                                                                                                                                                 | `{}`                                     |
+| `jira.webhook.path`                 | Jira webhook rest of the URL                                                                                                                                          | `{}`                                     |
+| `log.level`                         | Log level                                                                                                                                                             | `info`                                   |
+| `mapping.lifecycleStageToScmBranch` | Map Lifecycle stage to a SCM branch. Example: {"build": "develop","stage-release": "master","release": "release"}                                                     | `{}`                                     |
+| `mapping.threatLevelToJiraFields`   | Map Lifecycle threat level to Jira priority, severity, bug nature. Example: ```{"10": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-1","bugNature": "SCA-Security" } },"9": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-2","bugNature": "SCA-Security" } },"8": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "SEV-3","bugNature": "SCA-Security" } },"7": { "License": { "priority": "P1", "severity": "SEV-1", "bugNature": "SCA-License" }, "Security": { "priority": "P2", "severity": "SEV-4","bugNature": "SCA-Security" } }}``` | `{}`                                     |
 

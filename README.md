@@ -93,7 +93,8 @@ curl localhost:3000/ping
 
 ## Sample violation event request (Testing purpose only)
 This event will create 2 Jira tickets
-{% raw %}
+
+```unix
 curl --request POST \
   --url http://localhost:3000/lifecycle/violation \
   --header 'Content-Type: application/json' \
@@ -188,4 +189,4 @@ curl --request POST \
     }
   ]
 }'
-{% endraw %}
+```

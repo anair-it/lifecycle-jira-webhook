@@ -42,9 +42,9 @@
    
    10. PORT: Exposed port. Defaults to __3000__
    11. LOG_LEVEL: Minimum log level. Defaults to __info__
-   12. Deployable as a Docker container or Helm chart in a K8s environment
-   13. Structured logging to help with debugging
-   14. Refer unit tests for details. Run `npm test`
+9. Deployable as a Docker container or Helm chart in a K8s environment
+10. Structured logging to help with debugging
+11. Refer unit tests for details. Run `npm test`
 
 
 ## Root level components

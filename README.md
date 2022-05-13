@@ -5,7 +5,7 @@
 ![Jira bug](jira-bug.png)
 
 ## Reference
-- https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks
+- (https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks)
 
 ## Features
 1. This webhook integration implements a POST endpoint __/lifecycle/violation__ that will listen to a Nexus Lifecycle violation event

@@ -2,8 +2,8 @@
 [Sonatype Nexus Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management?topnav=true) is an SCA product. Currently Nexus Lifecycle cannot push violation events to __Jira cloud__ through a builtin plugin or software. This is a middleware component that can listen to Lifecycle violation events and create Jira cloud tickets
 
 ## Introduction
-
-This chart deploys a middleware component that integrates Sonatype lifecycle with Jira
+- This chart deploys a middleware component that integrates Sonatype lifecycle with Jira
+- Helm chart is hosted in [Artifact Hub](https://artifacthub.io/packages/helm/lifecycle-jira-integration/lifecycle-jira-integration)
 
 ## Prerequisites
 - Kubernetes 1.4+

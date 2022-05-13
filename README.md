@@ -55,7 +55,8 @@
 > [Docker hub image reference](https://hub.docker.com/repository/docker/anoopnair/lifecycle-jira-integration) 
 
 1. Create container and run in an environment where Nexus Lifecycle can access the url
-```
+
+```unix
 # Pull docker image from docker hub
 docker pull anoopnair/lifecycle-jira-integration:latest
 
@@ -66,6 +67,7 @@ docker run -p 3000:3000 --name my-lifecycle-jira-integration --rm -d -e PORT=300
 # Ping endpoint and get a "pong" response
 curl localhost:3000/ping
 ```
+
 2. Ensure Nexus lifecycle can access the webhook url
 3. Re-evaluate an application to manually create a violation
 4. Verify Jira ticket is created based on the violation

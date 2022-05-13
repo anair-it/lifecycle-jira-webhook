@@ -42,15 +42,6 @@ function fallbackErrorHandler(err, req, res, next) {
     res.status(500).send(err.message)
 }
 
-
-// Error handler
-// app.use((err, req, res, next) => {
-//     const statusCode = err.statusCode || 500
-//
-//     res.status(statusCode).send(err.message)
-//     next()
-// })
-
 app.use(errorLogger);
 app.use(errorResponder);
 app.use(fallbackErrorHandler);

@@ -137,7 +137,7 @@ describe('POST /lifecycle/violation', () => {
     }
 
     it('Mock Jira tickets created successfully', async()=> {
-        const service = sinon.stub(violationService, 'create').returns(true);
+        const service = sinon.stub(violationService, 'create');
         await request(app)
             .post('/lifecycle/violation')
             .set('X-Nexus-Webhook-ID','iq:violationAlert')

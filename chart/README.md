@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This chart deploys middleware component that integrates Sonatype lifecycle with Jira
+This chart deploys a middleware component that integrates Sonatype lifecycle with Jira
 
 ## Prerequisites
 - Kubernetes 1.4+

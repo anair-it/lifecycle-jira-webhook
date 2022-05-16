@@ -1,22 +1,23 @@
 # Sonatype Nexus Lifecycle-Jira cloud integration
-[Sonatype Nexus Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management?topnav=true) is an SCA product. Currently Nexus Lifecycle cannot push violation events to __Jira cloud__ through a builtin plugin or software. This is a middleware component that can listen to Lifecycle violation events and create Jira cloud tickets
+[Sonatype Nexus Lifecycle](https://www.sonatype.com/products/open-source-security-dependency-management?topnav=true) is an SCA product. Currently, Sonatype Nexus Lifecycle cannot push violation events to __Jira cloud__ through a builtin plugin or software. This is a middleware component that can listen to Lifecycle violation events and create Jira cloud tickets
 
 ![Data flow](data-flow.png)
 ![Jira bug](jira-bug.png)
 
 ## Reference
-- (https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks)
+- [Lifecycle Webhooks](https://help.sonatype.com/iqserver/automating/iq-server-webhooks#IQServerWebhooks)
 
 ## Features
 1. Implements a POST endpoint __/lifecycle/violation__ that will listen to Nexus Lifecycle violation events
 2. Works with Jira cloud (Should work in Jira datacenter as well, but not tested)
-3. Lightweight Express JS middleware on Node platform
+3. Lightweight Express JS middleware
 4. Configurable [Jira payload template](src/configs/jiraTemplate.json)
 5. Post data to Jira webhook that creates a story/bug. If there are multiple violations and multiple components per violation, a jira ticket is created per component. So one event can trigger multiple Jira tickets
-6. Lifecycle will send all events for every violation. Dedupe using _componentFact.hash_ in the Jira webhook configuration using a custom field
-7. Deployable as a Docker container or Helm chart in a K8s environment
-8. Structured logging to help with debugging
-9. Unit tested. Run `npm test`
+6. Jira webhook is tied to a specific project. This middleware supports pushing jira events to only 1 webhook/project
+7. Lifecycle will send all events for every violation. Dedupe using _componentFact.hash_ in the Jira webhook configuration using a custom field
+8. Deployable as a Docker container or Helm chart in a K8s environment
+9. Structured logging to help with debugging
+10. Unit tested. Run `npm test`
 
 ## Configuration
 Following environment variables are available for customizations:
@@ -60,7 +61,7 @@ Following environment variables are available for customizations:
 2. Configure Jira webhook actions and mapping to create the desired Jira type and format
 3. Work with your Nexus Lifecycle admin to configure a webhook with the url of the POST endpoint(_/lifecycle/violation_)
    1. Preferable set HMAC secret
-4. Set notification to Webhook and select the webhook per policy in the Organization page
+4. Set notification to Webhook and select the webhook per policy in the Orgs and Policies section
 
 ## Install
 ### As a Docker container

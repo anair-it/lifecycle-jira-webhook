@@ -1,4 +1,4 @@
-FROM node:17
+FROM node:18-alpine
 MAINTAINER Anoop Nair<anoopnair.in@outlook.com>
 LABEL description="Lifecycle Jira integrator image"
 

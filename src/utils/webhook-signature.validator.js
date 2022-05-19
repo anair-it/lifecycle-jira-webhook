@@ -7,7 +7,7 @@ async function validate(req, res, next) {
     if (signature != null) {
         const secretKey = process.env.LIFECYCLE_SECRET_KEY
         if (secretKey == null) {
-            const err = new Error('LIFECYCLE_SECRET_KEY is required. Get the secret from Lifecycle Webhook UI and set it in env');
+            const err = new Error('LIFECYCLE_SECRET_KEY is required. Get the secret from Lifecycle Webhook UI and set it as an env variable');
             err.type = 'auth'
             return next(err)
         } else {
@@ -18,7 +18,7 @@ async function validate(req, res, next) {
                 .digest('hex')
 
             if(signature !== hmacDigest){
-                const err = new Error('Webhook signature does not match. Either the secret key is incorrect or the endpoint is invoked outside of Lifecycle');
+                const err = new Error('Webhook signature does not match. Either the secret key is incorrect or the endpoint is illegally invoked outside of Lifecycle');
                 err.type = 'auth'
                 return next(err)
             }

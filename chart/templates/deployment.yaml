@@ -54,6 +54,8 @@ spec:
               value: {{ .Values.mapping.threatLevelToJiraFields | toJson | quote }}
             - name: MAPPING_STAGE_TO_BRANCH_TYPE
               value: {{ .Values.mapping.lifecycleStageToScmBranch | toJson | quote }}
+            - name: MAPPING_APPID_TO_SCRUM_TEAM
+              value: { { .Values.mapping.appIdToScrumTeam | toJson | quote } }
           ports:
             - name: http
               containerPort: {{ .Values.service.port | default 3000}}

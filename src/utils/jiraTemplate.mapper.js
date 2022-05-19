@@ -20,7 +20,14 @@ function map(reqBody, policyAlert, componentFact, threatLevelMapVal) {
         const MAPPING_STAGE_TO_BRANCH_TYPE = new Map(
             Object.entries(JSON.parse(process.env.MAPPING_STAGE_TO_BRANCH_TYPE))
         )
+        let MAPPING_APPID_TO_SCRUM_TEAM = null;
+
+        if(process.env.MAPPING_APPID_TO_SCRUM_TEAM != null)
+            MAPPING_APPID_TO_SCRUM_TEAM = new Map(
+            Object.entries(JSON.parse(process.env.MAPPING_APPID_TO_SCRUM_TEAM))
+        )
         const jiraDataTemplate = jiraTemplateReader.read()
+        const scrumTeam = MAPPING_APPID_TO_SCRUM_TEAM === null ? '':MAPPING_APPID_TO_SCRUM_TEAM.get(reqBody.application.publicId) === undefined?'':MAPPING_APPID_TO_SCRUM_TEAM.get(reqBody.application.publicId)
 
         return JSON.stringify(jiraDataTemplate)
             .split('{appName}')
@@ -61,6 +68,10 @@ function map(reqBody, policyAlert, componentFact, threatLevelMapVal) {
             .join(threatLevelMapVal.bugNature)
             .split('{jiraWebhookAuthToken}')
             .join(process.env.JIRA_WEBHOOK_AUTH_TOKEN)
+            .split('{appId}')
+            .join(reqBody.application.publicId)
+            .split('{scrumTeam}')
+            .join(scrumTeam)
     } catch (err) {
         logger.error('Failed to build Jira data', err.message)
     }

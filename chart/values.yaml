@@ -34,7 +34,7 @@ mapping:
       "8": { "License": { "priority": "P1", "severity": "S1", "bugNature": "SCA-License" }, "Security": { "priority": "P1", "severity": "S3", "bugNature": "SCA-Security" } },
       "7": { "License": { "priority": "P1", "severity": "S1", "bugNature": "SCA-License" }, "Security": { "priority": "P2", "severity": "S4", "bugNature": "SCA-Security" } }
     }
-
+  appIdToScrumTeam: {}
 
 serviceAccount:
   # Specifies whether a service account should be created

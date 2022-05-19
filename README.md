@@ -32,22 +32,48 @@ Following environment variables are available for customizations:
 
    ```json
     {
-     "10": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}},
-     "9": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}},
-     "8": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}},
-     "7": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}}
+     "10": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}
+          },
+     "9": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}
+          },
+     "8": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}
+          },
+     "7": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}
+          }
     }
    ```
 
 9. MAPPING_STAGE_TO_BRANCH_TYPE: Required. Map Lifecycle stage to an SCM branch type like
 
    ```json
-   {"build": "develop","stage-release": "master","release": "release"}
+   {
+    "build": "develop",
+    "stage-release": "master",
+    "release": "release"
+   }
+   ```
+   
+10. MAPPING_APPID_TO_SCRUM_TEAM: Optional. Map an application to a Jira scrum team
+
+   ```json
+   {
+     "appPublicId": "team1",
+     "appPublicId2": "team2",
+     "appPublicId3": "team1"
+   }
    ```
 
-10. PORT: Exposed port. Defaults to __3000__
-11. LOG_LEVEL: Minimum log level. Defaults to __info__
-12. jiraTemplate.json: Jira webhook POST payload structure
+12. PORT: Exposed port. Defaults to __3000__
+13. LOG_LEVEL: Minimum log level. Defaults to __info__
+14. jiraTemplate.json: Jira webhook POST payload structure
 
 ## Root level components
 1. index.js: Entrypoint
@@ -90,8 +116,9 @@ curl localhost:3000/ping
 Refer [Helm chart README](chart/README.md)
 
 
-## Sample violation event request (Testing purpose only)
-This sample event will create 2 Jira tickets
+## Lifecycle violation alert event and Jira payloads
+
+Below is a request to simulate a Lifecycle violation alert event:
 
 ```bash
 curl --request POST \
@@ -188,4 +215,42 @@ curl --request POST \
     }
   ]
 }'
+```
+
+The above event will create below 2 Jira requests:
+
+```json
+{
+   "summary":"Fix SCA vulnerability: My app - apache-collections : commons-collections : 3.1",
+   "priority":"P1",
+   "severity":"Sev-1",
+   "productVersion":"latest",
+   "environment":"DEV",
+   "description":"h1. Summary\r\n||*Application*|My app|\r\n||*Evaluation timestamp*|2019-08-27T20:33:47.854+0000|\r\n||*Lifecycle Stage*|build\r\nBranch type: master/feature/develop|\r\n||*Affected Component count*|1|\r\n||*Critical component count*|1|\r\n||*Severe component count*|0|\r\n||*Moderate component count*|0|\r\n\r\nh1. Violation detail\r\n||*Policy*|License-Critical|\r\n||*Threat level*|7|\r\n||*Component*|[apache-collections : commons-collections : 3.1|http://localhost:8070/assets/index.html#/applicationReport/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/40fb048097caeacdb11d/violations]|\r\n",
+   "replicationSteps":"http://localhost:8070/assets/index.html#/applicationReport/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/40fb048097caeacdb11d/violations",
+   "bugNature":"SCA-License",
+   "labels":"License-Critical",
+   "policyViolationId":"40fb048097caeacdb11d",
+   "auth":"1234",
+   "appId":"appPublicId",
+   "scrumTeam":"team1"
+}
+```
+
+```json
+{
+   "summary":"Fix SCA vulnerability: My app - apache : commons-lang : 1.6",
+   "priority":"P1",
+   "severity":"Sev-1",
+   "productVersion":"latest",
+   "environment":"DEV",
+   "description":"h1. Summary\r\n||*Application*|My app|\r\n||*Evaluation timestamp*|2019-08-27T20:33:47.854+0000|\r\n||*Lifecycle Stage*|build\r\nBranch type: master/feature/develop|\r\n||*Affected Component count*|1|\r\n||*Critical component count*|1|\r\n||*Severe component count*|0|\r\n||*Moderate component count*|0|\r\n\r\nh1. Violation detail\r\n||*Policy*|License-Critical|\r\n||*Threat level*|7|\r\n||*Component*|[apache : commons-lang : 1.6|http://localhost:8070/assets/index.html#/applicationReport/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/10fb048097caeacdb11d/violations]%7C\r\n",
+   "replicationSteps":"http://localhost:8070/assets/index.html#/applicationReport/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/10fb048097caeacdb11d/violations",
+   "bugNature":"SCA-License",
+   "labels":"License-Critical",
+   "policyViolationId":"10fb048097caeacdb11d",
+   "auth":"1234",
+   "appId":"appPublicId",
+   "scrumTeam":"team1"
+}
 ```

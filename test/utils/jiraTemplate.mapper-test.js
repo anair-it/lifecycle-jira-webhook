@@ -3,6 +3,8 @@ const jiraTemplateMapper = require('../../src/utils/jiraTemplate.mapper')
 
 describe('Validate Jira data builder', () => {
     before(function () {
+        process.env.MAPPING_APPID_TO_SCRUM_TEAM =
+            '{"appPublicId": "team1","appPublicId2": "team2","appPublicId3": "team1"}'
         process.env.MAPPING_STAGE_TO_BRANCH_TYPE =
             '{"build": "develop","stage-release": "master","release": "release"}'
         process.env.LIFECYCLE_BASE_URL = 'https://my-lifecycle.com'
@@ -140,7 +142,7 @@ describe('Validate Jira data builder', () => {
     }
 
     describe('jiraTemplate-mapper', () => {
-        it('Validate  Jira post data with valid input', () => {
+        it('Validate Jira post data with valid input', () => {
             const reqBody = getPayload(10)
             const jiraData = jiraTemplateMapper.map(
                 reqBody,
@@ -161,6 +163,8 @@ describe('Validate Jira data builder', () => {
             assert.equal(jiraJsonData.severity, 'S1')
             assert.equal(jiraJsonData.bugNature, 'SCA-Security')
             assert.equal(jiraJsonData.labels, 'Security-Critical')
+            assert.equal(jiraJsonData.appId, 'appPublicId')
+            assert.equal(jiraJsonData.scrumTeam, 'team1')
             assert.equal(
                 jiraJsonData.replicationSteps,
                 'https://my-lifecycle.com/reports/appPublicId/38e07c8866a242a485e6d7d2c1fd5692/componentDetails/40fb048097caeacdb11d/violations'

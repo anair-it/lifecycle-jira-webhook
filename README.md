@@ -32,22 +32,48 @@ Following environment variables are available for customizations:
 
    ```json
     {
-     "10": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}},
-     "9": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}},
-     "8": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}},
-     "7": {"License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}}
+     "10": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S1", "bugNature": "SCA-Security"}
+          },
+     "9": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S2", "bugNature": "SCA-Security"}
+          },
+     "8": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P1", "severity": "S3", "bugNature": "SCA-Security"}
+          },
+     "7": {
+            "License": {"priority": "P1", "severity": "S1", "bugNature": "SCA-License"}, 
+            "Security": {"priority": "P2", "severity": "S4", "bugNature": "SCA-Security"}
+          }
     }
    ```
 
 9. MAPPING_STAGE_TO_BRANCH_TYPE: Required. Map Lifecycle stage to an SCM branch type like
 
    ```json
-   {"build": "develop","stage-release": "master","release": "release"}
+   {
+    "build": "develop",
+    "stage-release": "master",
+    "release": "release"
+   }
+   ```
+   
+10. MAPPING_APPID_TO_SCRUM_TEAM: Optional. Map an application to a Jira scrum team
+
+   ```json
+   {
+     "appPublicId": "team1",
+     "appPublicId2": "team2",
+     "appPublicId3": "team1"
+   }
    ```
 
-10. PORT: Exposed port. Defaults to __3000__
-11. LOG_LEVEL: Minimum log level. Defaults to __info__
-12. jiraTemplate.json: Jira webhook POST payload structure
+12. PORT: Exposed port. Defaults to __3000__
+13. LOG_LEVEL: Minimum log level. Defaults to __info__
+14. jiraTemplate.json: Jira webhook POST payload structure
 
 ## Root level components
 1. index.js: Entrypoint

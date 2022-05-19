@@ -9,5 +9,7 @@
   "bugNature": "{bugNature}",
   "labels": "{policyName}",
   "policyViolationId": "{policyViolationId}",
-  "auth": "{jiraWebhookAuthToken}"
+  "auth": "{jiraWebhookAuthToken}",
+  "appId": "{appId}",
+  "scrumTeam": "{scrumTeam}"
 }

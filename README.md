@@ -221,7 +221,7 @@ The above event will create below 2 Jira requests:
 
 ```json
 {
-   "summary":"Fix SCA vulnerability: My app - apache-collections : commons-collections : 3.1",
+   "summary":"Fix Security-Critical vulnerability: My app - apache-collections : commons-collections : 3.1",
    "priority":"P1",
    "severity":"Sev-1",
    "productVersion":"latest",
@@ -239,7 +239,7 @@ The above event will create below 2 Jira requests:
 
 ```json
 {
-   "summary":"Fix SCA vulnerability: My app - apache : commons-lang : 1.6",
+   "summary":"Fix Security-Critical vulnerability: My app - apache : commons-lang : 1.6",
    "priority":"P1",
    "severity":"Sev-1",
    "productVersion":"latest",

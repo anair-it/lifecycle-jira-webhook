@@ -157,7 +157,7 @@ describe('Validate Jira data builder', () => {
             const jiraJsonData = JSON.parse(jiraData)
             assert.equal(
                 jiraJsonData.summary,
-                'Fix SCA vulnerability: My app - apache-collections : commons-collections : 3.1'
+                'Fix Security-Critical vulnerability: My app - apache-collections : commons-collections : 3.1'
             )
             assert.equal(jiraJsonData.priority, 'P1')
             assert.equal(jiraJsonData.severity, 'S1')

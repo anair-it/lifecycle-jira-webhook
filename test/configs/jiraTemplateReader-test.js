@@ -7,7 +7,7 @@ describe('Validate Jira template file reader', () => {
         assert.isNotNull(jiraTemplate)
         assert.equal(
             jiraTemplate.summary,
-            'Fix SCA vulnerability: {appName} - {component}'
+            'Fix {policyName} vulnerability: {appName} - {component}'
         )
     })
 })

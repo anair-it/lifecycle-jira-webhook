@@ -1,0 +1,33 @@
+{
+  "text": "Security vulnerability override",
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Overview"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "- *Application*: {appName}\n- *Stage*: {stage} | *Branch type*: {branch}\n- *Evaluation timestamp*: {evaluationDate}\n- *Outcome*: {outcome}\n- <{lifecycleReportUrl}|Report>"
+      }
+    },
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Violation count"
+      }
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "- *Affected*: {affectedComponentCount}\n- *Critical*: {criticalComponentCount}\n- *Severe*: {severeComponentCount}\n- *Moderate*: {moderateComponentCount}"
+      }
+    }
+  ]
+}

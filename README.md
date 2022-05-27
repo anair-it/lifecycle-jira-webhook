@@ -71,9 +71,14 @@ Following environment variables are available for customizations:
    }
    ```
 
-12. PORT: Exposed port. Defaults to __3000__
-13. LOG_LEVEL: Minimum log level. Defaults to __info__
-14. jiraTemplate.json: Jira webhook POST payload structure
+11. PORT: Exposed port. Defaults to __3000__
+12. LOG_LEVEL: Minimum log level. Defaults to __info__
+13. jiraTemplate.json: Jira webhook POST payload structure
+
+### Slack integration configuration
+1. ENABLE_SLACK_WEBHOOK: Optional. Defaults to false. If set to true, a webhook url is required and events will be posted to a specific slack channel
+2. SLACK_WEBHOOK_URL: Required only if slack integration is enabled. Get webhook url from Slack admin for a specific channel
+
 
 ## Root level components
 1. index.js: Entrypoint

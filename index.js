@@ -1,5 +1,6 @@
 const express = require('express')
 const lifecycleViolationRouter = require('./src/routes/lifecycleViolation.route')
+const lifecycleOverrideRouter = require('./src/routes/lifecycleOverride.route')
 const logger = require('./src/lib/logger')
 const httpLogger = require('./src/lib/httpLogger')
 const webhookSignatureValidator = require("./src/utils/webhook-signature.validator");
@@ -14,6 +15,7 @@ app.use(httpLogger)
 app.use(webhookSignatureValidator.validate)
 //Router
 app.use('/lifecycle/violation', lifecycleViolationRouter)
+app.use('/lifecycle/override', lifecycleOverrideRouter)
 
 
 //Service ping endpoint

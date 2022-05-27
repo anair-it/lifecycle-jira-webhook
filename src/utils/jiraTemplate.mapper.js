@@ -1,4 +1,4 @@
-const jiraTemplateReader = require('../configs/jiraTemplateReader')
+const templateReader = require('../configs/templateReader')
 const logger = require('../lib/logger')
 
 function buildViolationUrl(reqBody, componentFact) {
@@ -26,7 +26,7 @@ function map(reqBody, policyAlert, componentFact, threatLevelMapVal) {
             MAPPING_APPID_TO_SCRUM_TEAM = new Map(
             Object.entries(JSON.parse(process.env.MAPPING_APPID_TO_SCRUM_TEAM))
         )
-        const jiraDataTemplate = jiraTemplateReader.read()
+        const jiraDataTemplate = templateReader.readJiraTemplate()
         const scrumTeam = MAPPING_APPID_TO_SCRUM_TEAM === null ? '':MAPPING_APPID_TO_SCRUM_TEAM.get(reqBody.application.publicId) === undefined?'':MAPPING_APPID_TO_SCRUM_TEAM.get(reqBody.application.publicId)
 
         return JSON.stringify(jiraDataTemplate)
